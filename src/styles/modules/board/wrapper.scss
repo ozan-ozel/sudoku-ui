@@ -1,0 +1,40 @@
+.game-flex-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+@media screen and (max-width: $tablet-width) {
+  .game-flex-wrapper {
+    flex-direction: column;
+  }
+}
+
+.game-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: $max-width-game-wrapper;
+}
+
+.game-wrapper::after {  
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.game {
+  @extend %absolute-zero;
+}
+
+.game-table {
+  box-sizing: border-box;
+  @extend %w-100;
+  @extend %h-100;
+  margin: 0 auto;
+  padding: 0;
+  user-select: none;
+  border: 2px solid $default-text-color;
+  border-collapse: collapse;
+  border-spacing: 0;
+}

@@ -1,0 +1,18 @@
+.game-info-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin-bottom: $margin-size-medium;
+}
+
+.difficulty-text {
+  display: inline-block;
+  margin-right: $margin-size-small;
+  font-weight: $font-weight-bold;
+  color: $default-text-color;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  vertical-align: middle;
+  text-transform: capitalize;
+}

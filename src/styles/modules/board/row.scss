@@ -1,0 +1,8 @@
+.game-row {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  height: 11.11111%;
+  box-sizing: border-box;
+  @extend %w-100;
+}

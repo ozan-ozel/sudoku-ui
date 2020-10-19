@@ -1,0 +1,57 @@
+// Colors
+$white:                   #fff !default;
+$gray-100:                #f8f9fa !default;
+$gray-200:                #e9ecef !default;
+$gray-300:                #dee2e6 !default;
+$gray-400:                #ced4da !default;
+$gray-500:                #adb5bd !default;
+$gray-600:                #6c757d !default;
+$gray-700:                #495057 !default;
+$gray-800:                #343a40 !default;
+$gray-900:                #212529 !default; 
+$black:                   #000 !default;
+
+$body-bg:                 $white !default;
+$text-color:              $gray-900 !default;
+
+$default-text-color:      #344861 !default;
+$cell-border-color:       #bec6d4 !default;
+$cell-hover-color:        #def !default;
+$cell-highlighted-color:  #e2e7ed !default;
+$cell-selected-color:     #bbdefb !default;
+$cell-corresponding-color:  #cbdbed !default;
+$cell-corresponding-wrong-color:  #f7cfd6 !default;
+$control-border-color:    #bec6d4 !default;
+$control-hover-color:     #f3f6fa !default;
+$button-bg-color:         #94a3b7 !default;
+$button-hover-bg-color:   #4a90e2 !default;
+
+// Typography
+$font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
+$font-family-monospace:   Monaco, Menlo, Consolas, "Courier New", monospace !default;
+$font-family-base:        $font-family-sans-serif !default;
+
+$font-size-base:          1rem !default; // Assumes the browser default, typically `16px`
+$font-size-large:         2rem !default;
+
+$line-height-base:        1.5 !default;
+
+$font-weight-light:       300 !default;
+$font-weight-normal:      400 !default;
+$font-weight-strong:      500 !default;
+$font-weight-bold:        700 !default;
+
+// Margins
+$margin-size-small:       10px;
+$margin-size-medium:      20px;
+
+// Paddings
+$padding-size-small:      10px;
+$padding-size-medium:     20px;
+
+// Max Widths
+$max-width-content:       1070px;
+$max-width-game-wrapper:  450px;
+
+// Custom layout variables

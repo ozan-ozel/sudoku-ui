@@ -1,0 +1,20 @@
+.site-header {  
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  border-bottom: 1px solid $gray-800;
+  background-color: $white;
+  z-index: 100;
+}
+
+@media screen and (min-width: $tablet-width) {
+  .site-header {
+    height: 75px;
+    padding: $padding-size-medium 0 $padding-size-medium;
+  }
+}
+
+.logo {
+  font-size: $font-size-large;
+  font-weight: $font-weight-strong;
+  color: $gray-900;
+}

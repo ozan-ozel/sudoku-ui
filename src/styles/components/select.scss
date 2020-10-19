@@ -1,0 +1,65 @@
+.select-container {
+  position: relative;
+  display: inline-block;
+  font-weight: 600;
+  color: #94a3b7;
+  font-size: 16px;
+  line-height: 25px;
+  vertical-align: middle;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.select-arrow-down {
+  display: inline-block;
+  margin-left: 10px;
+  width: 9px;
+  height: 6px;
+  background: url('../images/bottom-arrow.svg') no-repeat;
+}
+
+.select-arrow-up-transform {
+  transform: rotate(180deg);
+}
+
+.d-block {
+  display: block;
+}
+
+.d-none {
+  display: none;
+}
+
+.select-menu {
+  position: absolute;
+  top: 35px;
+  left: -15px;
+  width: 130px;
+  text-align: left;
+  transform: none;
+  margin: 0;
+  padding: 0;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px 0 rgba(0,0,0,.2);
+  background-color: #fff;
+  color: #000;
+  z-index: 51;
+}
+
+.select-menu ul {
+  padding: 5px 0;
+  margin: 0;
+  list-style: none;
+}
+
+.select-menu a {
+  padding: 10px 15px;
+  color: #6e7c8c;
+  display: block;
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+}

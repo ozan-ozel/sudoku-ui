@@ -1,0 +1,105 @@
+.game-controls {
+  flex: 1 0 auto;
+  flex-grow: 0;
+}
+
+@media screen and (min-width: 800px) {
+  .game-controls {
+    flex: none;
+  }
+}
+
+.game-controls-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  @extend %w-100;
+  @extend %h-100;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 660px) {
+  .game-controls-buttons {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: $tablet-width) {
+  .game-controls-buttons {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: $padding-size-medium 0;
+  }
+}
+
+.game-controls-item {
+  box-sizing: border-box;
+  flex-basis: 50%;
+  max-width: 50%;
+  padding: 12px 0 6px;
+  text-align: center;
+  cursor: pointer;
+  border-color: $control-border-color;
+  border-style: solid;
+  border-width: 1px 0 0 1px;
+  transition: all .2s ease-in-out;
+}
+
+.game-controls-item:hover {
+background-color: $control-hover-color;
+}
+
+.game-controls .game-controls-item:nth-child(2n) {
+border-right-width: 1px;
+}
+
+.game-controls .game-controls-item:nth-child(3n) {
+border-bottom-width: 1px;
+}
+
+.game-controls .game-controls-item:nth-child(4n) {
+border-bottom-width: 1px;
+}
+
+.svg-wrapper {
+  position: relative;
+}
+
+@media screen and (max-width: $tablet-width) {
+  .game-controls .game-controls-item {
+    border: none;
+  }
+}
+
+.icon-game-control {
+  width: 30px;
+  height: 32px;
+  transition: color .2s ease-in-out;
+  -webkit-transition: color .2s ease-in-out;
+}
+
+.game-controls .svg-wrapper:after {
+  content: "OFF";
+  display: inline-block;
+  position: absolute;
+  top: -1px;
+  margin-left: 2px;
+  padding: 1px 4px;
+  font-size: 12px;
+  color: $white;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background-color: $button-bg-color;
+  transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+}
+
+.game-controls .svg-wrapper.notes-on:after {
+  content: "ON";
+  background-color: $button-hover-bg-color;
+}
+
+.game-controls-label {
+  font-size: $font-size-base;
+  color: $default-text-color;
+} 

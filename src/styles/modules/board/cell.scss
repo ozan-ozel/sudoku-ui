@@ -1,0 +1,49 @@
+.game-cell {
+  position: relative;
+  flex-basis: 11.1111%;
+  box-sizing: border-box;
+  border-right: 1.5px solid $cell-border-color;
+  border-bottom: 1.5px solid $cell-border-color;
+  cursor: pointer;
+  transform: translateZ(0);
+  outline:none;
+}
+
+.game-cell:hover {
+  background-color: $cell-hover-color;
+}
+
+.cell-highlighted {
+  background-color: $cell-highlighted-color;
+}
+
+.cell-selected {
+  background-color: $cell-selected-color;
+}
+
+.game-cell.cell-selected:hover {
+  background-color:  $cell-selected-color;
+}
+
+.cell-corresponding {
+  background-color: $cell-corresponding-color;
+}
+
+.cell-corresponding-wrong {
+  background-color: $cell-corresponding-wrong-color;
+}
+
+.cell-value {
+  position: absolute;
+  @extend %w-100;
+  @extend %h-100;
+  top: 10%;
+  left: 0;
+  padding-top: 10%;
+  cursor: inherit;
+  text-align: center;
+}
+
+.cell-value svg {
+  max-height: 17%;
+}

@@ -1,0 +1,47 @@
+.content-wrapper {
+  flex: auto;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: $max-width-content;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+@media screen and (min-width: $tablet-width) {
+  .content-wrapper {
+    @include content-wrapper-mixin(10px)
+  }
+}
+
+@media screen and (min-width: $mobile-width) {
+  .content-wrapper {
+    @include content-wrapper-mixin(20px)
+  }
+}
+
+.site-content-wrapper {
+  display: flex;
+  padding-top: $padding-size-small;
+}
+
+@media screen and (min-width: $tablet-width) {
+  .site-content-wrapper {
+    padding-top: $padding-size-medium;
+  }
+}
+
+.site-content {
+  position: relative;
+  width: 100%;
+}
+
+@media screen and (min-width: $desktop-width) {
+  .site-content {
+    margin-right: $padding-size-medium;
+  }
+}
+
+.sudoku-wrapper {
+  margin-bottom: $padding-size-medium;
+  touch-action: manipulation;
+}
