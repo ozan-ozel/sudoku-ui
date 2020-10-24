@@ -1,14 +1,15 @@
 import {
   INITIATE_GAME,
-  STORE_GAME,
-  CHANGE_DIFFICULTY,
+  TOGGLE_GAME_FINISHED,
   SELECT_CELL,
   CLEAR_CELLS,
   INSERT_CELL_VALUE,
   DELETE_CELL_VALUE,
+  GET_HINT,
   UNDO_MOVE,
   TOGGLE_NOTES,
-  CHANGE_NOTES
+  CHANGE_NOTES,
+  SET_KEY
 } from './actionTypes'
 
 export const initiateGame = (inputState) => ({
@@ -18,16 +19,9 @@ export const initiateGame = (inputState) => ({
   }
 })
 
-export const storeGame = () => ({
-  type: STORE_GAME,
+export const getHint = () => ({
+  type: GET_HINT,
   payload: {}
-})
-
-export const changeDifficulty = (difficulty) => ({
-  type: CHANGE_DIFFICULTY,
-  payload: {
-    difficulty
-  }
 })
 
 export const selectCell = (i , j) => ({
@@ -69,4 +63,16 @@ export const toggleNotes = () => ({
 export const changeNotes = (val) => ({
   type: CHANGE_NOTES,
   payload: {val}
+})
+
+export const toggleGameFinished = () => ({
+  type: TOGGLE_GAME_FINISHED,
+  payload: {}
+})
+
+export const setKey = (val) => ({
+  type: SET_KEY,
+  payload: {
+    val
+  }
 })

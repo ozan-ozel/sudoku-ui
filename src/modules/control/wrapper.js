@@ -1,7 +1,11 @@
 import React from 'react'
 import { connect } from "react-redux";
 
-import {deleteCellValue, insertCellValue, undoMove, toggleNotes, changeNotes} from '../../actions'
+import {
+  deleteCellValue,
+  insertCellValue,
+  getHint, undoMove,
+  toggleNotes, changeNotes, selectCell} from '../../actions'
 
 import {CONTROL_TYPES, STATUSES} from '../../constants'
 
@@ -12,9 +16,9 @@ import styles from '../../styles/index.scss'
 
 
 const GameControl = ({
-  status,
+  status, selectedCell, solution,
   insertCellValue, deleteCellValue,
-  undoMove,
+  getHint, undoMove,
   notesOn, toggleNotes, changeNotes}) => {
 
   const handleNumpadClick = (val) => {
@@ -42,6 +46,9 @@ const GameControl = ({
         break
       }
       case CONTROL_TYPES.HINT: {
+        if(status === STATUSES.SELECTED)
+          insertCellValue(solution[selectedCell.i][selectedCell.j])
+        // getHint()
         break
       }
       case CONTROL_TYPES.NOTES: {
@@ -68,5 +75,7 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, 
-  { insertCellValue, deleteCellValue,
-    undoMove, toggleNotes, changeNotes })(GameControl);
+  { 
+    insertCellValue, deleteCellValue,
+    undoMove, getHint,
+    toggleNotes, changeNotes })(GameControl);

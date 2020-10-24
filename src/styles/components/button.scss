@@ -1,0 +1,17 @@
+.btn {
+  display: block;
+  width: min-content;
+  padding: 4px 12px;
+  font-size: $font-size-base;
+  color: $white;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background-color: $button-bg-color;
+  transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $button-hover-bg-color;
+  }
+}

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useEffect, Fragment} from 'react'
 import { connect } from "react-redux";
 
 import { 
@@ -6,9 +6,12 @@ import {
   selectCell, clearCells,
   deleteCellValue, insertCellValue,
   undoMove,
-  changeNotes, toggleNotes} from '../../actions'
+  toggleGameFinished,
+  changeNotes, toggleNotes,
+  setKey
+} from '../../actions'
 
-import {DIFFICULTIES} from '../../constants'
+import {DIFFICULTIES, STATUSES} from '../../constants'
 
 import {getBoard} from '../../apiCalls'
 
@@ -16,13 +19,18 @@ import styles from '../../styles/index.scss'
 
 import GameRow from './row'
 
+import Modal from '../../components/modal'
+
 const GameBoard = ({
-  board, selectedCell, notesOn,
+  board, selectedCell, notesOn, status,
+  difficulty,
+  isGameFinished,
+  keyboardInput,
   initiateGame,
   selectCell, clearCells,
   insertCellValue, deleteCellValue,
-  undoMove,
-  changeNotes, toggleNotes}) => {
+  toggleGameFinished,
+  changeNotes, setKey}) => {
 
   const cellClicked = (i , j) => {
     
@@ -32,42 +40,37 @@ const GameBoard = ({
       selectCell(i, j)
   }
 
-  const cellKeyPressed = (val) => {
-    
-    if(["Delete", "Backspace", "e", "E"].indexOf(val) !== -1) {
-      deleteCellValue()
-    } else if(val === "n" || val === "N") {
-      toggleNotes()
-    } else if(val === "u" || val === "U") {
-      undoMove()
-    } else {
-      val = parseInt(val)
-
-      if(val >= 1 && val <= 9) {
-
-        if(notesOn) {
-          changeNotes(val)
-        } else {
-          insertCellValue(val)
-        }
-      }
-    }    
+  const handleGameFinished = () => {
+    getBoard(difficulty)
+    .then((response) => {
+      initiateGame({
+        status: STATUSES.INITIAL,
+        difficulty: difficulty,
+        board: response.board,
+        solution: response.solution,
+        selectedCell: {},
+        pastMoves: [],
+        notesOn: false,
+        wrongCells: {},
+        highlightedCells: [],
+        isGameFinished: false
+      })
+    })
   }
 
   useEffect(() => {
     let localState = JSON.parse(localStorage.getItem("sudoku-state"))
 
     if(localState) {
-      initiateGame(localState)
+      if(!board)
+        initiateGame(localState)
     } else {
       getBoard(DIFFICULTIES.Easy).then((response) => {
         initiateGame({ board: response.board, solution: response.solution, difficulty: DIFFICULTIES.Easy})
       })
     }
-    function handleKeyPressed(e) {
-      if(e.keyCode === 27) {
-        clearCells()
-      }
+    const handleKeyPressed = (e) => {
+      setKey(e.key)
     }
 
     document.addEventListener("keydown", handleKeyPressed)
@@ -78,23 +81,68 @@ const GameBoard = ({
 
   }, [])
 
-  return(
-    <div className={styles["game-wrapper"]}>
-      <div className={styles["game"]}>
-        <table className={styles["game-table"]}>
-          <tbody>
-            {board && board.map((row, i) => (
-              <GameRow 
-                row={row} i={i}
-                cellClicked={cellClicked}
-                cellKeyPressed={cellKeyPressed} >
-              </GameRow>
-            ))}
-          </tbody>
-        </table>
-      </div>
+  useEffect(() => {
 
-    </div>
+    if(keyboardInput) {
+      
+      // TODO: remove after tests are implemented
+      // used for testing only
+      if(keyboardInput === "x") {
+        toggleGameFinished()
+        setKey(null)
+      }
+
+      if(status === STATUSES.SELECTED) {
+
+        if(keyboardInput === "Escape") {
+          console.log("escape")
+          clearCells()
+        } else if(["Delete", "Backspace"].indexOf(keyboardInput) !== -1) {
+          deleteCellValue()
+        } else {
+          let val = parseInt(keyboardInput)
+  
+          if(val && val >= 1 && val <= 9) {
+  
+            if(notesOn) {
+              changeNotes(val)
+            } else {
+              insertCellValue(val)
+            }
+          }
+        }
+
+        setKey(null)
+      }
+    }
+  }, [keyboardInput])
+
+  return(
+    <Fragment>
+      <div className={styles["game-wrapper"]}>
+        <div className={styles["game"]}>
+          <table className={styles["game-table"]}>
+            <tbody>
+              {board && board.map((row, i) => (
+                <GameRow 
+                  row={row} i={i}
+                  cellClicked={cellClicked}>
+                </GameRow>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <Modal isOpen={isGameFinished} handleCloseClick={handleGameFinished} >
+        <div style={{paddingRight: '40px', marginTop: '20px'}}>
+          <h1>Congratulations</h1>
+          <p>You have completed the sudoku in {difficulty} mode.</p>
+          <p>A new board will be generated when you close...</p>
+          <a className={styles["btn"]} onClick={handleGameFinished}>Close</a>
+        </div>
+      </Modal>
+    </Fragment>
+
   )
 }
 
@@ -109,5 +157,6 @@ export default connect(mapStateToProps,
     initiateGame,
     selectCell, clearCells,
     insertCellValue, deleteCellValue,
+    toggleGameFinished,
     undoMove,
-    changeNotes, toggleNotes })(GameBoard);
+    changeNotes, toggleNotes, setKey })(GameBoard);

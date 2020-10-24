@@ -7,8 +7,9 @@ import {
   TOGGLE_NOTES,
   CHANGE_NOTES,
   INITIATE_GAME,
-  CHANGE_DIFFICULTY,
-  STORE_GAME
+  GET_HINT,
+  TOGGLE_GAME_FINISHED,
+  SET_KEY
 } from '../actionTypes'
 
 import {PRESENTATIONS, STATUSES, TYPES, OPERATIONS, PAST_MOVES_MAX, DIFFICULTIES} from '../constants'
@@ -22,7 +23,9 @@ const initialState = {
   pastMoves: [],
   notesOn: false,
   wrongCells: {},
-  highlightedCells: []
+  highlightedCells: [],
+  isGameFinished: false,
+  keyboardInput: ""
 }
 
 // data
@@ -188,9 +191,6 @@ export default function(state = initialState, action) {
         ...inputState
       }
     }
-    case CHANGE_DIFFICULTY: {
-      const {difficulty} = action.payload
-    }
     case SELECT_CELL: {
      
       const {i, j} = action.payload
@@ -259,15 +259,26 @@ export default function(state = initialState, action) {
 
         if(checkGameEnd(board)) {
           console.log("Game ENd")
-        }
 
-        return {
-          ...state,
-          status: STATUSES.SELECTED,
-          board,
-          pastMoves,
-          wrongCells,
-          highlightedCells
+          return {
+            ...state,
+            status: STATUSES.SELECTED,
+            board,
+            pastMoves,
+            wrongCells,
+            highlightedCells,
+            isGameFinished: true
+          }
+        } else {
+
+          return {
+            ...state,
+            status: STATUSES.SELECTED,
+            board,
+            pastMoves,
+            wrongCells,
+            highlightedCells
+          }
         }
       } else {
         return state
@@ -303,6 +314,38 @@ export default function(state = initialState, action) {
         }
       } else {
         return state
+      }
+    }
+    case GET_HINT: {
+      const {i, j} = state.selectedCell
+
+      let board = Object.assign([], state.board)
+      let wrongCells = Object.assign([], state.wrongCells)
+      let highlightedCells = new Array()
+
+      board[i][j].d = solution[i][j]
+
+      renewCells(board, i, j, highlightedCells, wrongCells)
+
+      if(checkGameEnd(board)) {
+        return {
+          ...state,
+          status: STATUSES.SELECTED,
+          board,
+          pastMoves,
+          wrongCells,
+          highlightedCells,
+          isGameFinished: true
+        }
+      } else {
+        return {
+          ...state,
+          status: STATUSES.SELECTED,
+          board,
+          pastMoves,
+          wrongCells,
+          highlightedCells
+        }
       }
     }
     case UNDO_MOVE: {
@@ -401,10 +444,25 @@ export default function(state = initialState, action) {
         }
 
 
+      } else {
+        return state
+      }
+    }
+    case SET_KEY: {
+      const {val} = action.payload
+
+      return {
+        ...state,
+        keyboardInput: val
+      }
+    }
+    case TOGGLE_GAME_FINISHED: {
+      return {
+        ...state,
+        isGameFinished: !state.isGameFinished
       }
     }
     default:
       return state
-      break
   }
 }
